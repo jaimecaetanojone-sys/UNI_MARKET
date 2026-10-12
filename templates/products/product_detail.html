@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} — {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container product-detail">
+    <div class="detail-media">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% else %}
+        <span class="product-placeholder" aria-hidden="true">Sem fotografia</span>
+      {% endif %}
+    </div>
+    <div>
+      <p class="product-category">{{ product.category.name }}</p>
+      <h1>{{ product.name }}</h1>
+      <p class="product-price product-price-lg">{{ product.price|floatformat:2 }} {{ CURRENCY_SYMBOL }}</p>
+      {% if product.in_stock %}
+        <p class="badge badge-ok">Disponível ({{ product.stock }} em stock)</p>
+      {% else %}
+        <p class="badge badge-warn">Esgotado</p>
+      {% endif %}
+      {% if product.description %}<p>{{ product.description|linebreaksbr }}</p>{% endif %}
+      <p class="muted">A compra online ficará disponível na Fase 4 (carrinho e encomendas).</p>
+      <a class="btn btn-ghost" href="{% url 'products:list' %}">&larr; Voltar aos produtos</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

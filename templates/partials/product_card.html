@@ -1,0 +1,16 @@
+{% load static %}
+<article class="product-card">
+  <a class="product-media" href="{{ product.get_absolute_url }}">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+    {% else %}
+      <span class="product-placeholder" aria-hidden="true">Sem fotografia</span>
+    {% endif %}
+  </a>
+  <div class="product-body">
+    <p class="product-category">{{ product.category.name }}</p>
+    <h3 class="product-name"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+    <p class="product-price">{{ product.price|floatformat:2 }} {{ CURRENCY_SYMBOL }}</p>
+    {% if not product.in_stock %}<p class="badge badge-warn">Esgotado</p>{% endif %}
+  </div>
+</article>

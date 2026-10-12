@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <p class="eyebrow">Marketplace universitário · Moçambique</p>
+      <h1>Compra e vende dentro da tua comunidade universitária.</h1>
+      <p class="lead">Cria a tua loja, publica os teus produtos e encontra compradores entre estudantes.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{% url 'products:list' %}">Explorar produtos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Produtos recentes</h2>
+      <a href="{% url 'products:list' %}">Ver todos</a>
+    </div>
+
+    {% if recent_products %}
+      <div class="product-grid">
+        {% for product in recent_products %}
+          {% include "partials/product_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state" role="status">
+        <h3>Ainda não há produtos publicados</h3>
+        <p>As lojas e os produtos dos estudantes vão aparecer aqui assim que forem publicados.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

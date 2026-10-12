@@ -1,0 +1,28 @@
+# Segredos e configuração local
+.env
+*.env
+!.env.example
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Django
+/media/
+/staticfiles/
+
+# Editor / sistema
+.vscode/*
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db

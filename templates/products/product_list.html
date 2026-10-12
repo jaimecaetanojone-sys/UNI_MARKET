@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Produtos — {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1>Produtos</h1>
+
+    <form class="filters" method="get" action="{% url 'products:list' %}">
+      <div class="field">
+        <label for="f-q">Pesquisa</label>
+        <input id="f-q" type="search" name="q" value="{{ query }}" placeholder="Nome ou descrição">
+      </div>
+      <div class="field">
+        <label for="f-cat">Categoria</label>
+        <select id="f-cat" name="categoria">
+          <option value="">Todas</option>
+          {% for category in nav_categories %}
+            <option value="{{ category.slug }}" {% if category.slug == selected_category %}selected{% endif %}>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-min">Preço mínimo ({{ CURRENCY_SYMBOL }})</label>
+        <input id="f-min" type="number" name="preco_min" min="0" step="0.01" value="{{ preco_min }}">
+      </div>
+      <div class="field">
+        <label for="f-max">Preço máximo ({{ CURRENCY_SYMBOL }})</label>
+        <input id="f-max" type="number" name="preco_max" min="0" step="0.01" value="{{ preco_max }}">
+      </div>
+      <div class="field field-actions">
+        <button class="btn btn-primary" type="submit">Filtrar</button>
+        <a class="btn btn-ghost" href="{% url 'products:list' %}">Limpar</a>
+      </div>
+    </form>
+
+    {% if products %}
+      <div class="product-grid">
+        {% for product in products %}
+          {% include "partials/product_card.html" %}
+        {% endfor %}
+      </div>
+
+      {% if is_paginated %}
+        <nav class="pagination" aria-label="Paginação">
+          {% if page_obj.has_previous %}
+            <a class="btn btn-ghost" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">Anterior</a>
+          {% endif %}
+          <span>Página {{ page_obj.number }} de {{ paginator.num_pages }}</span>
+          {% if page_obj.has_next %}
+            <a class="btn btn-ghost" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Seguinte</a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    {% else %}
+      <div class="empty-state" role="status">
+        <h3>Nenhum produto encontrado</h3>
+        <p>Tenta outra pesquisa ou remove alguns filtros.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

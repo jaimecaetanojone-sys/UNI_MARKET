@@ -1,0 +1,8 @@
+# UniMarket - dependências (Fase 1)
+# Versões LTS/estáveis, compatíveis entre si. Instalar com: pip install -r requirements.txt
+Django>=5.2,<5.3                 # Django 5.2 LTS
+djangorestframework>=3.16,<3.17  # API REST
+drf-spectacular>=0.28,<0.29      # Documentação OpenAPI/Swagger
+django-environ>=0.12,<0.13       # Leitura do ficheiro .env
+Pillow>=11.0                     # Necessário para ImageField (fotografias)
+mysqlclient>=2.2,<2.3            # Driver MySQL (tem wheels para Windows)
